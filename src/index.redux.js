@@ -25,3 +25,11 @@ export function removeOne() {
     type: REMOVE
   }
 }
+
+export function addOneAsync() {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(addOne())
+    }, 2000)
+  }
+}
