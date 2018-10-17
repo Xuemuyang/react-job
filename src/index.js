@@ -3,43 +3,27 @@ import ReactDom from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
-import App from './App'
-import { counter } from './index.redux'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
+import Auth from './Auth'
+import Dashboard from './Dashboard'
+import reducers from './reducer'
 
 const reduxDevtools = window.devToolsExtension ? window.devToolsExtension() : ()=>{}
-const store = createStore(counter, compose(
+const store = createStore(reducers, compose(
   applyMiddleware(thunk),
   reduxDevtools
 ))
 
-function One() {
-  return <h1>一</h1>
-}
-
-function Two() {
-  return <h1>二</h1>
-}
+console.log(store.getState())
 
 ReactDom.render(
   (<Provider store={store}>
       <BrowserRouter>
-        <div>
-          <ul>
-            <li>
-              <Link to='/'>home</Link>
-            </li>
-            <li>
-              <Link to='/one'>一</Link>
-            </li>
-            <li>
-              <Link to='/two'>二</Link>
-            </li>
-          </ul>
-          <Route path='/' exact component={App}></Route>
-          <Route path='/one' component={One}></Route>
-          <Route path='/two' component={Two}></Route>
-        </div>
+        <Switch>
+          <Route path='/login' component={Auth}></Route>
+          <Route path='/dashboard' component={Dashboard}></Route>
+          <Redirect to='/dashboard' component={Dashboard}></Redirect>
+        </Switch>
       </BrowserRouter>
     </Provider>
   ),
