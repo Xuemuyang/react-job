@@ -1,4 +1,4 @@
-'use strict';
+
 
 const path = require('path');
 const fs = require('fs');
@@ -52,4 +52,7 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
+  component: path.resolve(__dirname, '../src/component'),
+  container: path.resolve(__dirname, '../src/container'),
+  assets: path.resolve(__dirname, '../src/assets'),
 };
