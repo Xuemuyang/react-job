@@ -55,4 +55,5 @@ module.exports = {
   component: path.resolve(__dirname, '../src/component'),
   container: path.resolve(__dirname, '../src/container'),
   assets: path.resolve(__dirname, '../src/assets'),
+  src: path.resolve(__dirname, '../src')
 };

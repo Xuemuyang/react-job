@@ -1,41 +1,92 @@
-import React from 'react'
-import Logo from 'component/logo/logo'
-import { List, InputItem, Radio, WingBlank, WhiteSpace, Button } from 'antd-mobile'
+import React from "react";
+import Logo from "component/logo/logo";
+import {
+  List,
+  InputItem,
+  Radio,
+  WingBlank,
+  WhiteSpace,
+  Button
+} from "antd-mobile";
+import { connect } from "react-redux";
+import { register } from "src/redux/user.redux";
+import "src/index.scss";
 
-class Register extends React.Component{
+@connect(
+  state => state.user,
+  { register }
+)
+class Register extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      type: 'genius'
-    }
+      user: "",
+      pwd: "",
+      repeatpwd: "",
+      type: "genius"
+    };
+
+    this.handleRegister = this.handleRegister.bind(this);
+  }
+
+  handleChange(key, val) {
+    this.setState({
+      [key]: val
+    });
+  }
+
+  handleRegister() {
+    this.props.register(this.state);
   }
 
   render() {
-    const RadioItem = Radio.RadioItem
+    const RadioItem = Radio.RadioItem;
 
     return (
       <div>
-        <Logo></Logo>
-        <h2>注册页面</h2>
+        <Logo />
+        {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
         <List>
-            <InputItem>用户名</InputItem>
-            <WhiteSpace />
-            <InputItem>密码</InputItem>
-            <WhiteSpace />
-            <InputItem>确认密码</InputItem>
-            <WhiteSpace />
-            <RadioItem checked={this.state.type === 'genius'}>
-              牛人
-            </RadioItem>
-            <RadioItem checked={this.state.type === 'boss'}>
-              Boss
-            </RadioItem>
-            <WhiteSpace />
-            <Button type='primary'>注册</Button>
-          </List>
+          <WhiteSpace />
+          <InputItem onChange={v => this.handleChange("user", v)}>
+            用户名
+          </InputItem>
+          <WhiteSpace />
+          <InputItem
+            type="password"
+            onChange={v => this.handleChange("pwd", v)}
+          >
+            密码
+          </InputItem>
+          <WhiteSpace />
+          <InputItem
+            onChange={v => this.handleChange("repeatpwd", v)}
+            type="password"
+          >
+            确认密码
+          </InputItem>
+          <WhiteSpace />
+          <RadioItem
+            checked={this.state.type === "genius"}
+            onChange={v => this.handleChange("type", "genius")}
+          >
+            牛人
+          </RadioItem>
+          <WhiteSpace />
+          <RadioItem
+            checked={this.state.type === "boss"}
+            onChange={v => this.handleChange("type", "boss")}
+          >
+            Boss
+          </RadioItem>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.handleRegister}>
+            注册
+          </Button>
+        </List>
       </div>
-    )
+    );
   }
 }
 
-export default Register
+export default Register;
