@@ -25,7 +25,7 @@ class AuthRoute extends React.Component {
   }
 
   render() {
-    return <h1>哈哈</h1>
+    return null
   }
 }
 

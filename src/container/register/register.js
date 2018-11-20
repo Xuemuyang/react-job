@@ -9,6 +9,7 @@ import {
   Button
 } from "antd-mobile";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom"
 import { register } from "src/redux/user.redux";
 import "src/index.scss";
 
@@ -44,6 +45,7 @@ class Register extends React.Component {
 
     return (
       <div>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo />
         {this.props.msg ? <p className="err-msg">{this.props.msg}</p> : null}
         <List>

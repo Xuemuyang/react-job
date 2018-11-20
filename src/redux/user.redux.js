@@ -1,9 +1,11 @@
 import axios from 'axios'
+import { getRedirectPath } from 'src/utils'
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 
 const initState = {
+  redirectTo: '',
   isAuth: '',
   msg: '',
   user: '',
@@ -18,6 +20,7 @@ export function user(state = initState, action) {
       return {
         ...state,
         msg: '',
+        redirectTo: getRedirectPath(action.payload),
         isAuth:true,
         ...action.payload
       }
